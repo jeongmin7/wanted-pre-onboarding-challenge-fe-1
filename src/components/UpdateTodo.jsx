@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const UpdateTodo = ({ el }) => {
   const [data, setData] = useState(el);
-  console.log(el);
   const navigate = useNavigate();
   const click = (e) => {
     e.stopPropagation();

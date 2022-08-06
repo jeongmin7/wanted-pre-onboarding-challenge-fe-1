@@ -40,7 +40,7 @@ const Auth = () => {
 
   const token = localStorage.getItem("token");
   useEffect(() => {
-    !token && navigate("/auth");
+    token && navigate("/");
   }, [token, navigate]);
 
   const handleLogin = (e) => {

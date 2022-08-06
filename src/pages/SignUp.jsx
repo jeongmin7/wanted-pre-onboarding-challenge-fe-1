@@ -1,44 +1,48 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 const SignUp = () => {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [emailValidity, setEmailValidity] = useState(false);
-  const [pwValidity, setPwValidity] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [pwError, setPwError] = useState(false);
-  const emailRegex = /[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]+/gm;
-  let emailResult = emailRegex.test(userEmail);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [pwError, setPwError] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleEmail = (e) => {
-    setUserEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setUserPassword(e.target.value);
-  };
-  const handleEmailError = () => {
-    setEmailError("이메일에는 @, .이 필요합니다. ");
-    setEmailValidity(true);
-  };
-  const handlePwError = () => {
-    setPwError("비밀번호는 8자 이상이어야 합니다.  ");
-    setPwValidity(true);
+  const emailRegex =
+    /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+  const handleInput = (e) => {
+    if (e.target.type === "email") {
+      setEmail(e.target.value);
+    } else if (e.target.type === "password") {
+      setPassword(e.target.value);
+    }
   };
 
   useEffect(() => {
-    !emailRegex.test(userEmail) ? handleEmailError() : setEmailError("");
-  }, [userEmail]);
+    emailRegex.test(email) && password.length >= 8
+      ? setError(false)
+      : setError(true);
+  }, [email, password]);
+
   useEffect(() => {
-    userPassword.length >= 8 ? setPwError("") : handlePwError();
-  }, [userPassword]);
+    !emailRegex.test(email)
+      ? setErrorMsg("이메일에는 @, .가 있어야합니다. ")
+      : setErrorMsg(" ");
+  }, [email]);
+
+  useEffect(() => {
+    password.length <= 8
+      ? setPwError("비밀번호는 8자 이상이어야 합니다.  ")
+      : setPwError(" ");
+  }, [password]);
 
   const handleSignUp = (e) => {
     e.preventDefault();
 
     axios
       .post("http://localhost:8080/users/create", {
-        email: userEmail,
-        password: userPassword,
+        email: email,
+        password: password,
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -48,22 +52,28 @@ const SignUp = () => {
     <div>
       <form>
         <input
-          type="text"
+          className="emailInput"
+          type="email"
           placeholder="이메일을 입력해주세요"
-          value={userEmail}
-          onChange={handleEmail}
+          value={email}
+          onChange={handleInput}
         />
-        {userEmail && emailValidity ? emailError : ""}
+        {email && errorMsg}
         <input
+          className="pwInput"
           type="password"
           placeholder="비밀번호를 입력해주세요"
-          value={userPassword}
-          onChange={handlePassword}
+          value={password}
+          onChange={handleInput}
         />
-        {userPassword && pwValidity ? pwError : ""}
-        <button onClick={handleSignUp} disabled={(emailValidity, pwValidity)}>
-          회원가입
-        </button>
+        {password && pwError}
+        <input
+          type="submit"
+          className="submitBtn"
+          onClick={handleSignUp}
+          value="로그인"
+          disabled={error}
+        ></input>
       </form>
     </div>
   );
