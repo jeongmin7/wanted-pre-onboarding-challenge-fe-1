@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -25,7 +25,7 @@ const Btn = styled.button`
   padding: 0.5rem;
 `;
 
-const UpdateTodo = ({ el, done }) => {
+const UpdateTodo = ({ el }) => {
   const [data, setData] = useState(el);
   const navigate = useNavigate();
   const click = (e) => {
@@ -36,10 +36,6 @@ const UpdateTodo = ({ el, done }) => {
     setData({ ...data, [key]: event.target.value });
   };
 
-  const handleDone = (e) => {
-    e.preventDefault();
-    setData({ ...data, [done]: done });
-  };
   console.log(data);
   const token = localStorage.getItem("token");
   const updateTodo = async (e) => {

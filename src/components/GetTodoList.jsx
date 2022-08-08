@@ -79,17 +79,12 @@ const GetTodoList = () => {
   // const newData = useRecoilValue(updateDataState);
   const [open, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState("");
-  const [doneId, setDoneId] = useState("");
-  const [done, setDone] = useState(false);
 
   const openDetail = (key) => {
     setSelectedId(key);
     setOpen(!open);
   };
-  const handleDone = (key) => {
-    setDoneId(key);
-    setDone(!done);
-  };
+
   const token = localStorage.getItem("token");
 
   const getTodos = () => {
@@ -152,11 +147,7 @@ const GetTodoList = () => {
                 </div>
               )}
             </ContentContainer>
-            {open && key + 1 === selectedId ? (
-              <TodoDetail el={el} done={done} />
-            ) : (
-              ""
-            )}
+            {open && key + 1 === selectedId ? <TodoDetail el={el} /> : ""}
           </Map>
         ))
       ) : (
