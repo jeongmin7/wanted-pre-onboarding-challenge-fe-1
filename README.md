@@ -1,3 +1,2 @@
-안녕하세요 저는  코드스테이츠 
-# wanted-pre-onboarding-challenge-fe-1수ㄹ
-# wanted-pre-onboarding-challenge-fe-
+안녕하세요 저는  코드스테이츠 부트캠프 수료 후 구직 중인 이정민 입니다. 
+원티드 프리온보딩 챌린지를 통해 성장하여 좋은 개발자가 되고 싶습니다. 
