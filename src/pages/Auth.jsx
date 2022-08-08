@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const Form = styled.form`
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+`;
 const Auth = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -63,8 +78,9 @@ const Auth = () => {
   };
 
   return (
-    <div>
-      <form>
+    <Container>
+      <Form>
+        <div>로그인</div>
         <input
           className="emailInput"
           type="email"
@@ -91,8 +107,8 @@ const Auth = () => {
         <Link to="/signup">
           <button>회원가입하기</button>
         </Link>
-      </form>
-    </div>
+      </Form>
+    </Container>
   );
 };
 
